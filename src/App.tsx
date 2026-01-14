@@ -1,6 +1,6 @@
 
 import React, { useState, createContext, useContext } from 'react';
-import { HashRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { Menu, X, MessageSquare, Globe } from 'lucide-react';
 import { translations } from './translations';
 
@@ -39,7 +39,7 @@ const App: React.FC = () => {
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, t }}>
-      <HashRouter>
+      <BrowserRouter basename="/Portfolio-2.0">
         <div className="min-h-screen flex flex-col font-sans selection:bg-brutal-green selection:text-black bg-white">
           
           <header className="fixed top-0 left-0 w-full z-40 bg-white border-b-4 border-black">
@@ -127,7 +127,7 @@ const App: React.FC = () => {
             </div>
           </footer>
         </div>
-      </HashRouter>
+      </BrowserRouter>
     </LanguageContext.Provider>
   );
 };
