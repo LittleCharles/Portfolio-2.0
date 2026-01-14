@@ -85,9 +85,9 @@ const Home: React.FC = () => {
             <div className="relative group">
               <div className="absolute inset-0 bg-brutal-purple translate-x-4 translate-y-4 border-4 border-black -z-10 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform"></div>
               <div className="border-4 border-black bg-white overflow-hidden shadow-hard aspect-[4/5] grayscale hover:grayscale-0 transition-all duration-500">
-                <img 
-                  src="assets/ImageProfile2.png" 
-                  alt="Luis Carlos Vieira" 
+                <img
+                  src="/Portfolio-2.0/assets/ImageProfile2.png"
+                  alt="Luis Carlos Vieira"
                   className="w-full h-full object-cover"
                 />
               </div>

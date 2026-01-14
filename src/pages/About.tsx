@@ -38,9 +38,9 @@ const About: React.FC = () => {
         <div className="bg-white border-[3px] border-black p-5 shadow-hard flex flex-col">
           {/* Foto de Perfil */}
           <div className="border-[3px] border-black mb-6 grayscale overflow-hidden aspect-[4/5] shrink-0">
-            <img 
-              src="assets/ImageProfile2.png" 
-              alt="Luis Carlos Vieira" 
+            <img
+              src="/Portfolio-2.0/assets/ImageProfile2.png"
+              alt="Luis Carlos Vieira"
               className="w-full h-full object-cover"
             />
           </div>
