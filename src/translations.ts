@@ -73,7 +73,7 @@ export const translations = {
       cls_desc: 'CLS Tecnologia - Estagiário de TI',
       present: 'Presente',
       view_full_edu: 'Ver formação completa',
-      more: 'Veja a experiência completa'
+      more: 'Ver experiência completa'
     },
     stack: {
       title: 'Minha Stack',
@@ -213,7 +213,7 @@ export const translations = {
       cls_desc: 'CLS Tecnologia - IT Intern',
       present: 'Present',
       view_full_edu: 'View full education',
-      more: 'See full experience'
+      more: 'View full experience'
     },
     stack: {
       title: 'My Stack',
