@@ -15,7 +15,7 @@ const Projects: React.FC = () => {
   // ];
 
   return (
-    <div className="animate-in fade-in duration-500">
+    <div className="animate-fade-in">
       <SectionTitle subtitle={t.projects.subtitle}>{t.projects.title}</SectionTitle>
 
       {/* Coming Soon Message */}

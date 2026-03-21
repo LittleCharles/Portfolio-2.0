@@ -18,7 +18,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="animate-in fade-in duration-500">
+    <div className="animate-fade-in">
       <SectionTitle subtitle={t.contact.subtitle}>{t.contact.title}</SectionTitle>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -53,7 +53,7 @@ const Contact: React.FC = () => {
              <input 
               type="text" 
               required
-              className="border-4 border-black p-3 font-mono focus:outline-none focus:bg-brutal-green focus:border-black transition-colors"
+              className="border-4 border-black p-3 font-mono focus:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2 focus:bg-brutal-green focus:border-black transition-colors"
               placeholder={t.contact.placeholder_name}
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -65,7 +65,7 @@ const Contact: React.FC = () => {
              <input 
               type="email" 
               required
-              className="border-4 border-black p-3 font-mono focus:outline-none focus:bg-brutal-green focus:border-black transition-colors"
+              className="border-4 border-black p-3 font-mono focus:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2 focus:bg-brutal-green focus:border-black transition-colors"
               placeholder={t.contact.placeholder_email}
               value={formData.email}
               onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -77,7 +77,7 @@ const Contact: React.FC = () => {
              <textarea 
               rows={5}
               required
-              className="border-4 border-black p-3 font-mono focus:outline-none focus:bg-brutal-green focus:border-black transition-colors resize-none"
+              className="border-4 border-black p-3 font-mono focus:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2 focus:bg-brutal-green focus:border-black transition-colors resize-none"
               placeholder={t.contact.placeholder_message}
               value={formData.message}
               onChange={(e) => setFormData({...formData, message: e.target.value})}

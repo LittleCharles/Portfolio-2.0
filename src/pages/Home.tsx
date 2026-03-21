@@ -50,7 +50,7 @@ const Home: React.FC = () => {
     <div className="flex flex-col gap-16 md:gap-24 overflow-x-hidden">
       {/* Hero Section */}
       <section className="min-h-[60vh] flex flex-col justify-center relative py-8">
-        <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 grid grid-cols-1 lg:grid-cols-5 gap-6 items-center">
+        <div className="animate-page-in grid grid-cols-1 lg:grid-cols-5 gap-6 items-center">
           
           <div className="lg:col-span-3">
             <div className="flex items-center gap-3 mb-6">
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
 
           <div className="lg:col-span-2 hidden lg:block">
             <div className="relative group">
-              <div className="absolute inset-0 bg-brutal-purple translate-x-4 translate-y-4 border-4 border-black -z-10 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform"></div>
+              <div className="absolute inset-0 bg-brutal-purple translate-x-4 translate-y-4 border-4 border-black -z-10 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform will-change-transform"></div>
               <div className="border-4 border-black bg-white overflow-hidden shadow-hard aspect-[4/5] grayscale hover:grayscale-0 transition-all duration-500">
                 <img
                   src="/Portfolio-2.0/assets/ImageProfile2.png"
@@ -258,7 +258,7 @@ const Home: React.FC = () => {
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
            {mainSkills.map(skill => (
-             <BrutalCard key={skill.name} className="flex flex-col items-center justify-center py-6 md:py-8 text-center bg-white group hover:translate-y-[-5px] transition-transform">
+             <BrutalCard key={skill.name} className="flex flex-col items-center justify-center py-6 md:py-8 text-center bg-white group hover:translate-y-[-5px] transition-transform will-change-transform">
                <span className="text-2xl md:text-3xl font-black mb-2">{skill.icon}</span>
                <span className="font-bold uppercase text-[10px] md:text-xs font-mono">{skill.name}</span>
              </BrutalCard>

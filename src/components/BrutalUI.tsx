@@ -22,7 +22,7 @@ export const BrutalButton: React.FC<BrutalButtonProps> = ({
   icon,
   ...props 
 }) => {
-  const baseStyles = "relative inline-flex items-center justify-center px-8 py-4 font-black border-4 border-black transition-all duration-150 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-tighter";
+  const baseStyles = "relative inline-flex items-center justify-center px-8 py-4 font-black border-4 border-black transition-[transform,box-shadow,background-color,color] duration-150 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-tighter will-change-transform focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brutal-purple focus-visible:ring-offset-2";
   
   const variants = {
     primary: "bg-brutal-green text-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:bg-white hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]",
@@ -62,10 +62,10 @@ export const NavLink: React.FC<{ to: string; children: React.ReactNode }> = ({ t
   const isActive = location.pathname === to;
   
   return (
-    <Link 
-      to={to} 
+    <Link
+      to={to}
       className={`
-        px-6 py-2 font-black uppercase transition-all relative text-sm tracking-widest
+        group px-6 py-2 font-black uppercase transition-all relative text-sm tracking-widest focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brutal-purple focus-visible:ring-offset-2
         ${isActive ? 'text-black' : 'text-gray-500 hover:text-brutal-purple'}
       `}
     >
@@ -74,7 +74,7 @@ export const NavLink: React.FC<{ to: string; children: React.ReactNode }> = ({ t
         <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-[60%] h-1.5 bg-brutal-green -z-10"></span>
       )}
       {!isActive && (
-        <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-1.5 bg-brutal-purple -z-10 transition-all group-hover:w-[60%]"></span>
+        <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-[60%] h-1.5 bg-brutal-purple -z-10 transition-transform duration-300 origin-center scale-x-0 group-hover:scale-x-100"></span>
       )}
     </Link>
   );
@@ -94,15 +94,16 @@ export const SectionTitle: React.FC<{ children: React.ReactNode; subtitle?: stri
 );
 
 export const SocialLink: React.FC<{ href: string; icon: React.ReactNode; label: string }> = ({ href, icon, label }) => (
-  <a 
-    href={href} 
-    target="_blank" 
+  <a
+    href={href}
+    target="_blank"
     rel="noopener noreferrer"
-    className="group flex items-center justify-between p-5 border-4 border-black bg-white hover:bg-brutal-green transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]"
+    className="group flex items-center justify-between p-5 border-4 border-black bg-white hover:bg-brutal-green transition-[transform,box-shadow,background-color] shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] will-change-transform focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2"
   >
     <span className="font-black text-xl uppercase">{label}</span>
     <span className="group-hover:rotate-45 transition-transform duration-300">
       {icon}
     </span>
+    <span className="sr-only"> (opens in new window)</span>
   </a>
 );
