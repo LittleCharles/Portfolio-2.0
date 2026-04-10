@@ -3,9 +3,17 @@ import React from 'react';
 import { SectionTitle, BrutalButton } from '../components/BrutalUI';
 import { Github, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../App';
+import { useDocumentHead } from '../hooks/useDocumentHead';
 
 const Projects: React.FC = () => {
   const { t, lang } = useLanguage();
+
+  useDocumentHead({
+    title: lang === 'pt' ? 'Projetos' : 'Projects',
+    description: lang === 'pt'
+      ? 'Projetos de desenvolvimento web de Luis Carlos Vieira.'
+      : 'Web development projects by Luis Carlos Vieira.'
+  });
 
   // const projectsImages = [
   //   'https://picsum.photos/800/600?random=1',
@@ -19,9 +27,9 @@ const Projects: React.FC = () => {
       <SectionTitle subtitle={t.projects.subtitle}>{t.projects.title}</SectionTitle>
 
       {/* Coming Soon Message */}
-      <div className="border-4 border-black bg-white p-12 md:p-32 text-center">
-        <h2 className="text-5xl md:text-8xl font-black uppercase mb-6">EM BREVE</h2>
-        <p className="font-mono text-base md:text-xl font-bold text-gray-600 max-w-2xl mx-auto">
+      <div className="border-theme border-theme-border bg-surface p-12 md:p-32 text-center shadow-theme">
+        <h2 className="text-5xl md:text-8xl font-black uppercase mb-6 text-fg">EM BREVE</h2>
+        <p className="font-mono text-base md:text-xl font-bold text-muted max-w-2xl mx-auto">
           {lang === 'pt'
             ? 'PROJETOS INCRÍVEIS ESTÃO A CAMINHO. FIQUE LIGADO!'
             : 'AMAZING PROJECTS COMING SOON. STAY TUNED!'}

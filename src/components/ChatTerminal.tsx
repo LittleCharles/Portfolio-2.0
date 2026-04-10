@@ -1,20 +1,19 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Terminal as TerminalIcon, X, Loader2 } from 'lucide-react';
-import { sendMessageToGemini } from '../services/geminiService';
 import { ChatMessage } from '../types';
 import { useLanguage } from '../App';
 
 const MessageItem = React.memo<{ msg: ChatMessage; visitorLabel: string; botLabel: string }>(({ msg, visitorLabel, botLabel }) => (
   <div className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
     <div
-      className={`max-w-[85%] p-3 border-2 ${
+      className={`max-w-[85%] p-3 border-theme-sm ${
         msg.role === 'user'
-          ? 'bg-brutal-green text-black border-brutal-green'
-          : 'bg-transparent text-green-500 border-green-900'
+          ? 'bg-accent text-on-accent border-accent'
+          : 'bg-transparent text-fg border-muted'
       }`}
     >
-      <div className="text-xs opacity-50 mb-1 font-bold uppercase">
+      <div className="text-xs opacity-60 mb-1 font-bold uppercase">
         {msg.role === 'user' ? `> ${visitorLabel}` : `> ${botLabel}`}
       </div>
       <div className="whitespace-pre-wrap">{msg.text}</div>
@@ -109,30 +108,34 @@ export const ChatTerminal: React.FC<ChatTerminalProps> = ({ onClose }) => {
   };
 
   return (
-    <div role="dialog" aria-modal="true" aria-label={t.terminal.header} className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-      <div className="w-full max-w-2xl bg-black border-4 border-white shadow-[12px_12px_0_0_#CCFF00] flex flex-col h-[600px] max-h-[90vh]">
-        {/* Header */}
-        <div className="bg-white p-2 flex justify-between items-center border-b-4 border-white">
+    <div role="dialog" aria-modal="true" aria-label={t.terminal.header} className="fixed inset-0 z-50 flex items-center justify-center bg-fg/80 backdrop-blur-sm p-4">
+      <div className="chat-window w-full max-w-2xl bg-bg text-fg border-theme border-theme-border shadow-theme-lg flex flex-col h-[600px] max-h-[90vh]">
+        {/* Header / Titlebar */}
+        <div className="chat-titlebar bg-surface text-fg p-2 flex justify-between items-center border-b-theme border-theme-border">
           <div className="flex items-center gap-2 px-2">
-            <TerminalIcon className="w-5 h-5 text-black" />
-            <span className="font-bold font-mono text-black uppercase">{t.terminal.header}</span>
+            <TerminalIcon className="w-5 h-5" />
+            <span className="font-bold font-mono uppercase">{t.terminal.header}</span>
           </div>
-          <button onClick={onClose} aria-label={lang === 'pt' ? 'Fechar terminal' : 'Close terminal'} className="p-2 hover:bg-black hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black">
+          <button
+            onClick={onClose}
+            aria-label={lang === 'pt' ? 'Fechar terminal' : 'Close terminal'}
+            className="p-2 border-theme-sm border-theme-border hover:bg-accent hover:text-on-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-border"
+          >
             <X className="w-6 h-6" />
           </button>
         </div>
 
         {/* Output */}
-        <div 
+        <div
           ref={scrollRef}
-          className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-sm md:text-base"
+          className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-sm md:text-base bg-bg"
         >
           {messages.map((msg) => (
             <MessageItem key={msg.id} msg={msg} visitorLabel={t.terminal.visitor} botLabel={t.terminal.bot} />
           ))}
           {isLoading && (
             <div className="flex justify-start">
-               <div className="bg-transparent text-green-500 border-green-900 border-2 p-3 flex items-center gap-2">
+               <div className="bg-transparent text-muted border-muted border-theme-sm p-3 flex items-center gap-2">
                  <Loader2 className="w-4 h-4 animate-spin" />
                  <span>{t.terminal.processing}</span>
                </div>
@@ -141,9 +144,9 @@ export const ChatTerminal: React.FC<ChatTerminalProps> = ({ onClose }) => {
         </div>
 
         {/* Input */}
-        <div className="p-4 border-t-4 border-white bg-black">
+        <div className="p-4 border-t-theme border-theme-border bg-bg">
           <div className="flex gap-2">
-            <span className="text-brutal-green font-mono py-3 font-bold">{'>'}</span>
+            <span className="text-accent font-mono py-3 font-bold">{'>'}</span>
             <input
               type="text"
               value={input}
@@ -152,13 +155,13 @@ export const ChatTerminal: React.FC<ChatTerminalProps> = ({ onClose }) => {
               autoFocus
               placeholder={t.terminal.placeholder}
               aria-label={lang === 'pt' ? 'Digite sua mensagem' : 'Type your message'}
-              className="flex-1 bg-transparent text-white font-mono placeholder-gray-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brutal-green py-3"
+              className="flex-1 bg-transparent text-fg font-mono placeholder:text-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-accent py-3"
             />
             <button
               onClick={handleSend}
               disabled={isLoading || !input.trim()}
               aria-label={lang === 'pt' ? 'Enviar mensagem' : 'Send message'}
-              className="bg-white text-black px-4 py-3 font-bold hover:bg-brutal-green disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brutal-green"
+              className="bg-accent text-on-accent px-4 py-3 font-bold hover:bg-accent-3 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-border border-theme-sm border-theme-border"
             >
               <Send className="w-5 h-5" />
             </button>

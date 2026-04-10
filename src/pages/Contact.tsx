@@ -3,9 +3,17 @@ import React, { useState } from 'react';
 import { SectionTitle, SocialLink, BrutalButton } from '../components/BrutalUI';
 import { Mail, Linkedin, Github, MapPin } from 'lucide-react';
 import { useLanguage } from '../App';
+import { useDocumentHead } from '../hooks/useDocumentHead';
 
 const Contact: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+
+  useDocumentHead({
+    title: lang === 'pt' ? 'Contato' : 'Contact',
+    description: lang === 'pt'
+      ? 'Entre em contato com Luis Carlos Vieira para projetos e oportunidades.'
+      : 'Get in touch with Luis Carlos Vieira for projects and opportunities.'
+  });
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -25,7 +33,7 @@ const Contact: React.FC = () => {
         
         {/* Contact Info */}
         <div className="space-y-8">
-          <p className="text-xl font-mono leading-relaxed">
+          <p className="text-xl font-mono leading-relaxed text-fg">
             {t.contact.info}
           </p>
 
@@ -35,7 +43,7 @@ const Contact: React.FC = () => {
             <SocialLink label="GitHub" href="https://github.com/LittleCharles" icon={<Github />} />
           </div>
 
-          <div className="mt-8 p-6 bg-brutal-green border-4 border-black shadow-hard">
+          <div className="mt-8 p-6 bg-accent text-on-accent border-theme border-theme-border shadow-theme">
             <div className="flex items-center gap-4 mb-2">
               <MapPin className="w-6 h-6" />
               <h4 className="font-black uppercase text-xl">{t.contact.location_title}</h4>
@@ -45,15 +53,15 @@ const Contact: React.FC = () => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="bg-white border-4 border-black p-8 shadow-hard flex flex-col gap-6">
-           <h3 className="text-2xl font-black uppercase border-b-4 border-black pb-4">{t.contact.form_title}</h3>
-           
+        <form onSubmit={handleSubmit} className="bg-surface text-fg border-theme border-theme-border p-8 shadow-theme flex flex-col gap-6">
+           <h3 className="text-2xl font-black uppercase border-b-theme border-theme-border pb-4">{t.contact.form_title}</h3>
+
            <div className="flex flex-col gap-2">
              <label className="font-bold uppercase font-mono text-sm">{t.contact.name}</label>
-             <input 
-              type="text" 
+             <input
+              type="text"
               required
-              className="border-4 border-black p-3 font-mono focus:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2 focus:bg-brutal-green focus:border-black transition-colors"
+              className="bg-bg text-fg border-theme border-theme-border p-3 font-mono focus:outline-none focus-visible:ring-4 focus-visible:ring-theme-border focus-visible:ring-offset-2 focus-visible:border-fg transition-colors"
               placeholder={t.contact.placeholder_name}
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -62,10 +70,10 @@ const Contact: React.FC = () => {
 
            <div className="flex flex-col gap-2">
              <label className="font-bold uppercase font-mono text-sm">{t.contact.email}</label>
-             <input 
-              type="email" 
+             <input
+              type="email"
               required
-              className="border-4 border-black p-3 font-mono focus:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2 focus:bg-brutal-green focus:border-black transition-colors"
+              className="bg-bg text-fg border-theme border-theme-border p-3 font-mono focus:outline-none focus-visible:ring-4 focus-visible:ring-theme-border focus-visible:ring-offset-2 focus-visible:border-fg transition-colors"
               placeholder={t.contact.placeholder_email}
               value={formData.email}
               onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -74,10 +82,10 @@ const Contact: React.FC = () => {
 
            <div className="flex flex-col gap-2">
              <label className="font-bold uppercase font-mono text-sm">{t.contact.message}</label>
-             <textarea 
+             <textarea
               rows={5}
               required
-              className="border-4 border-black p-3 font-mono focus:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-2 focus:bg-brutal-green focus:border-black transition-colors resize-none"
+              className="bg-bg text-fg border-theme border-theme-border p-3 font-mono focus:outline-none focus-visible:ring-4 focus-visible:ring-theme-border focus-visible:ring-offset-2 focus-visible:border-fg transition-colors resize-none"
               placeholder={t.contact.placeholder_message}
               value={formData.message}
               onChange={(e) => setFormData({...formData, message: e.target.value})}

@@ -3,31 +3,108 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luis Carlos Vieira | Fullstack Brutalist</title>
+    <title>Luis Carlos Vieira | Full Stack Developer</title>
+    <meta name="description" content="Luis Carlos Vieira - Desenvolvedor Full Stack. Especializado em React.js, Next.js, TypeScript, Node.js e AWS. Portfolio com projetos, experiência e contato." />
+    <meta name="author" content="Luis Carlos Vieira" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#CCFF00" />
+    <link rel="canonical" href="https://littlecharles.github.io/Portfolio-2.0/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Luis Carlos Vieira | Full Stack Developer" />
+    <meta property="og:description" content="Desenvolvedor Full Stack especializado em React.js, Next.js, TypeScript e AWS. Veja meus projetos e entre em contato." />
+    <meta property="og:url" content="https://littlecharles.github.io/Portfolio-2.0/" />
+    <meta property="og:image" content="https://littlecharles.github.io/Portfolio-2.0/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:site_name" content="Luis Carlos Vieira - Portfolio" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Luis Carlos Vieira | Full Stack Developer" />
+    <meta name="twitter:description" content="Full Stack Developer - React.js, Next.js, TypeScript, Node.js, AWS" />
+    <meta name="twitter:image" content="https://littlecharles.github.io/Portfolio-2.0/og-image.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/Portfolio-2.0/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/Portfolio-2.0/apple-touch-icon.png" />
+    <link rel="manifest" href="/Portfolio-2.0/site.webmanifest" />
+
+    <!-- SPA redirect handler (works with 404.html) -->
+    <script>
+      (function(l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&family=VT323&family=JetBrains+Mono:wght@400;700&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+      // All color/shadow/border/font aliases resolve at runtime via CSS
+      // variables defined in src/index.css under each [data-theme="..."]
+      // block. That's what makes the skin switcher work — no rebuild needed.
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              'brutal-green': '#CCFF00',
-              'brutal-red': '#FF2A00',
-              'brutal-purple': '#A600FF',
+              // Theme tokens
+              'bg':          'var(--color-bg)',
+              'fg':          'var(--color-fg)',
+              'surface':     'var(--color-surface)',
+              'surface-alt': 'var(--color-surface-alt)',
+              'muted':       'var(--color-muted)',
+              'accent':      'var(--color-accent)',
+              'on-accent':   'var(--color-on-accent)',
+              'accent-2':    'var(--color-accent-2)',
+              'accent-3':    'var(--color-accent-3)',
+              'highlight':   'var(--color-highlight)',
+              'inverse-bg':  'var(--color-inverse-bg)',
+              'inverse-fg':  'var(--color-inverse-fg)',
+              'theme-border':'var(--color-border)',
+              // Legacy aliases (kept so any stray reference still themes correctly)
+              'brutal-green':  'var(--color-accent)',
+              'brutal-red':    'var(--color-accent-2)',
+              'brutal-purple': 'var(--color-accent-3)',
             },
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              mono: ['Space Mono', 'Courier New', 'monospace'],
+              sans:    ['var(--font-body)',    'Inter', 'sans-serif'],
+              mono:    ['var(--font-mono)',    'Space Mono', 'monospace'],
+              display: ['var(--font-display)', 'Inter', 'sans-serif'],
             },
             boxShadow: {
-              'hard': '6px 6px 0px 0px rgba(0,0,0,1)',
-              'hard-sm': '3px 3px 0px 0px rgba(0,0,0,1)',
-              'hard-lg': '10px 10px 0px 0px rgba(0,0,0,1)',
-            }
+              'theme':    'var(--shadow-theme)',
+              'theme-sm': 'var(--shadow-theme-sm)',
+              'theme-lg': 'var(--shadow-theme-lg)',
+              // Legacy aliases
+              'hard':     'var(--shadow-theme)',
+              'hard-sm':  'var(--shadow-theme-sm)',
+              'hard-lg':  'var(--shadow-theme-lg)',
+            },
+            borderWidth: {
+              'theme':    'var(--border-w)',
+              'theme-sm': 'var(--border-w-sm)',
+            },
+            borderColor: {
+              DEFAULT: 'var(--color-border)',
+            },
           },
         },
       }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   </head>
   <body>
     <div id="root"></div>
