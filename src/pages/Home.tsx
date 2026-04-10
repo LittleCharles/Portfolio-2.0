@@ -4,7 +4,53 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Monitor, Database, Cloud, GraduationCap, Briefcase, ExternalLink } from 'lucide-react';
 import { BrutalButton, BrutalCard, SectionTitle } from '../components/BrutalUI';
 import { useLanguage } from '../App';
+import { useTheme } from '../contexts/ThemeContext';
 import { useDocumentHead } from '../hooks/useDocumentHead';
+
+interface ServiceCardProps {
+  icon: typeof Monitor;
+  title: string;
+  description: string;
+  accentClass: string;
+}
+
+/**
+ * Service card with two layouts:
+ *  - win98: icon-in-box + title side-by-side + hr divider (matches the
+ *    About page Educação/Experiência cards)
+ *  - everything else: original brutal layout (absolute title + decorative
+ *    dot + large standalone icon)
+ */
+const ServiceCard: React.FC<ServiceCardProps> = ({ icon: Icon, title, description, accentClass }) => {
+  const { theme } = useTheme();
+
+  if (theme === 'win98') {
+    return (
+      <BrutalCard className="flex flex-col">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="bg-inverse-bg text-inverse-fg p-2 border-theme-sm border-theme-border shrink-0">
+            <Icon size={24} />
+          </div>
+          <h4 className="font-black uppercase text-2xl tracking-tight text-fg">{title}</h4>
+        </div>
+        <hr className="border-theme-sm border-theme-border w-full mb-4" />
+        <p className="font-mono text-sm leading-tight font-bold text-fg">{description}</p>
+      </BrutalCard>
+    );
+  }
+
+  return (
+    <BrutalCard className="relative pt-12 flex flex-col gap-4 group">
+      <div className="absolute top-4 right-4 w-4 h-4 rounded-full bg-fg"></div>
+      <div className="absolute top-4 left-6 font-black uppercase tracking-tighter text-xl text-fg">{title}</div>
+      <hr className="border-theme-sm border-theme-border w-full" />
+      <div className="px-2">
+        <Icon size={40} className={`mb-4 ${accentClass}`} strokeWidth={3} />
+        <p className="font-mono text-sm leading-tight font-bold text-fg">{description}</p>
+      </div>
+    </BrutalCard>
+  );
+};
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -119,47 +165,28 @@ const Home: React.FC = () => {
 
       {/* Services Grid */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-        <BrutalCard className="relative pt-12 flex flex-col gap-4 group">
-          <div className="absolute top-4 right-4 w-4 h-4 rounded-full bg-fg"></div>
-          <div className="absolute top-4 left-6 font-black uppercase tracking-tighter text-xl text-fg">Frontend</div>
-          <hr className="border-theme-sm border-theme-border w-full" />
-          <div className="px-2">
-            <Monitor size={40} className="mb-4 text-accent" strokeWidth={3} />
-            <p className="font-mono text-sm leading-tight font-bold text-fg">
-              {lang === 'pt'
-                ? 'Interfaces pixel-perfect e responsivas. React, Next.js e Tailwind CSS para criar experiências únicas.'
-                : 'Pixel-perfect, responsive interfaces. React, Next.js, and Tailwind CSS.'}
-            </p>
-          </div>
-        </BrutalCard>
-
-        <BrutalCard className="relative pt-12 flex flex-col gap-4 group">
-          <div className="absolute top-4 right-4 w-4 h-4 rounded-full bg-fg"></div>
-          <div className="absolute top-4 left-6 font-black uppercase tracking-tighter text-xl text-fg">Backend</div>
-          <hr className="border-theme-sm border-theme-border w-full" />
-          <div className="px-2">
-            <Database size={40} className="mb-4 text-accent-2" strokeWidth={3} />
-            <p className="font-mono text-sm leading-tight font-bold text-fg">
-              {lang === 'pt'
-                ? 'APIs robustas e arquitetura de banco de dados. Escalabilidade não é opcional.'
-                : 'Robust APIs and database architecture. Scalability is a must.'}
-            </p>
-          </div>
-        </BrutalCard>
-
-        <BrutalCard className="relative pt-12 flex flex-col gap-4 group">
-          <div className="absolute top-4 right-4 w-4 h-4 rounded-full bg-fg"></div>
-          <div className="absolute top-4 left-6 font-black uppercase tracking-tighter text-xl text-fg">
-            {t.services.infra}
-          </div>
-          <hr className="border-theme-sm border-theme-border w-full" />
-          <div className="px-2">
-            <Cloud size={40} className="mb-4 text-accent-3" strokeWidth={3} />
-            <p className="font-mono text-sm leading-tight font-bold text-fg">
-              {t.services.infra_desc}
-            </p>
-          </div>
-        </BrutalCard>
+        <ServiceCard
+          icon={Monitor}
+          title="Frontend"
+          accentClass="text-accent"
+          description={lang === 'pt'
+            ? 'Interfaces pixel-perfect e responsivas. React, Next.js e Tailwind CSS para criar experiências únicas.'
+            : 'Pixel-perfect, responsive interfaces. React, Next.js, and Tailwind CSS.'}
+        />
+        <ServiceCard
+          icon={Database}
+          title="Backend"
+          accentClass="text-accent-2"
+          description={lang === 'pt'
+            ? 'APIs robustas e arquitetura de banco de dados. Escalabilidade não é opcional.'
+            : 'Robust APIs and database architecture. Scalability is a must.'}
+        />
+        <ServiceCard
+          icon={Cloud}
+          title={t.services.infra}
+          accentClass="text-accent-3"
+          description={t.services.infra_desc}
+        />
       </section>
 
       {/* About Summary */}
@@ -187,7 +214,7 @@ const Home: React.FC = () => {
 
             <button
               onClick={() => navigate('/about')}
-              className="mt-12 w-full text-left font-black uppercase text-xs md:text-sm text-fg hover:text-accent-3 flex items-center gap-2 group transition-all"
+              className="mt-12 w-full text-left font-black uppercase text-xs md:text-sm text-fg hover:text-accent flex items-center gap-2 group transition-all"
             >
               {t.about.view_full_edu} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
@@ -218,7 +245,7 @@ const Home: React.FC = () => {
 
             <button
               onClick={() => navigate('/about')}
-              className="mt-12 w-full text-left font-black uppercase text-xs md:text-sm text-fg hover:text-accent-3 flex items-center gap-2 group transition-all"
+              className="mt-12 w-full text-left font-black uppercase text-xs md:text-sm text-fg hover:text-accent flex items-center gap-2 group transition-all"
             >
               {t.about.more} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>

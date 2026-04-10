@@ -39,7 +39,10 @@ export const BrutalButton: React.FC<BrutalButtonProps> = ({
 
 export const BrutalCard: React.FC<BrutalCardProps> = ({ children, title, className = '', decoration = false }) => {
   return (
-    <div className={`bg-surface border-theme border-theme-border p-8 shadow-theme relative h-full ${className}`}>
+    <div
+      className={`brutal-card bg-surface border-theme border-theme-border p-8 shadow-theme relative h-full ${className}`}
+      data-title={title || 'Portfolio.exe'}
+    >
       {decoration && (
         <div className="absolute top-2 right-2 flex gap-1">
            <div className="w-3 h-3 border-theme-sm border-theme-border rounded-full"></div>
@@ -100,7 +103,7 @@ export const SocialLink: React.FC<{ href: string; icon: React.ReactNode; label: 
     className="group flex items-center justify-between p-5 border-theme border-theme-border bg-surface text-fg hover:bg-accent hover:text-on-accent transition-[transform,box-shadow,background-color,color] shadow-theme-sm hover:translate-y-[-2px] hover:shadow-theme will-change-transform focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-theme-border focus-visible:ring-offset-2"
   >
     <span className="font-black text-xl uppercase">{label}</span>
-    <span className="group-hover:rotate-45 transition-transform duration-300">
+    <span className="text-fg group-hover:text-on-accent group-hover:rotate-45 transition-[transform,color] duration-300">
       {icon}
     </span>
     <span className="sr-only"> (opens in new window)</span>

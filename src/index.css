@@ -308,12 +308,17 @@ body {
 
 /* ---------- WIN98: classic chrome tweaks ---------- */
 [data-theme="win98"] body {
-  background-image:
-    repeating-linear-gradient(
-      45deg,
-      rgba(0, 0, 0, 0.03) 0 2px,
-      transparent 2px 4px
-    );
+  /* Authentic Win95/98 desktop color — solid teal #008080.
+     Header, footer and the .app-shell wrapper are overridden below so
+     the windows still look gray (Explorer-style) floating on the desktop. */
+  background-color: #008080 !important;
+  background-image: none;
+}
+
+/* The shell wrapper has bg-bg (gray) — make it transparent so the body
+   teal shows through in the margins. Header/footer keep their bg-bg. */
+[data-theme="win98"] .app-shell {
+  background-color: transparent !important;
 }
 
 [data-theme="win98"] select,
@@ -344,6 +349,282 @@ body {
 }
 [data-theme="win98"] .chat-titlebar svg {
   color: var(--color-on-accent);
+}
+
+/* ==========================================================================
+   WIN98 — AUTHENTIC EXPLORER CHROME (taskbar / titlebars / status bar /
+   menu bar / address bar / nav buttons / scrollbar)
+
+   These rules only apply when [data-theme="win98"] is active. The
+   <Win98Taskbar />, <Win98Chrome /> and <Win98StatusBar /> components
+   render `null` on other skins, so the chrome only appears here.
+   ========================================================================== */
+
+/* ---------- Beveled buttons (taskbar, nav, address bar) ---------- */
+.win98-btn {
+  background: #c0c0c0;
+  color: #000000;
+  font-family: 'Pixelify Sans', 'MS Sans Serif', 'Tahoma', sans-serif;
+  border: none;
+  border-radius: 0;
+  box-shadow:
+    inset  1px  1px 0 0 #ffffff,
+    inset -1px -1px 0 0 #404040,
+    inset  2px  2px 0 0 #dfdfdf,
+    inset -2px -2px 0 0 #808080;
+}
+.win98-btn:hover {
+  background: #d4d4d4;
+}
+.win98-btn:active,
+.win98-btn:focus-visible {
+  box-shadow:
+    inset  1px  1px 0 0 #404040,
+    inset -1px -1px 0 0 #ffffff,
+    inset  2px  2px 0 0 #808080,
+    inset -2px -2px 0 0 #dfdfdf;
+  outline: 1px dotted #000;
+  outline-offset: -4px;
+}
+
+.win98-btn-pressed {
+  background: #a8a8a8;
+  color: #000000;
+  font-family: 'Pixelify Sans', 'MS Sans Serif', 'Tahoma', sans-serif;
+  border: none;
+  border-radius: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.18) 0 1px,
+    transparent 1px 3px
+  );
+  box-shadow:
+    inset  1px  1px 0 0 #404040,
+    inset -1px -1px 0 0 #ffffff,
+    inset  2px  2px 0 0 #808080,
+    inset -2px -2px 0 0 #dfdfdf;
+}
+
+/* ---------- Taskbar (fixed bottom) ---------- */
+[data-theme="win98"] .win98-taskbar {
+  background: #c0c0c0;
+  box-shadow:
+    inset  0  1px 0 0 #ffffff,
+    inset  0  2px 0 0 #dfdfdf;
+}
+
+[data-theme="win98"] .win98-tray {
+  box-shadow:
+    inset  1px  1px 0 0 #808080,
+    inset -1px -1px 0 0 #ffffff;
+  background: #c0c0c0;
+}
+
+/* ---------- Chrome (menu bar / nav / address bar — fixed under header) ---------- */
+[data-theme="win98"] .win98-chrome {
+  background: #c0c0c0;
+  color: #000000;
+  font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+  box-shadow:
+    inset  0  1px 0 0 #ffffff,
+    0 1px 0 0 #404040,
+    0 2px 0 0 #ffffff;
+}
+
+[data-theme="win98"] .win98-address-field {
+  background: #ffffff;
+  box-shadow:
+    inset  1px  1px 0 0 #808080,
+    inset -1px -1px 0 0 #ffffff,
+    inset  2px  2px 0 0 #404040,
+    inset -2px -2px 0 0 #dfdfdf;
+}
+
+/* ---------- Status bar (fixed above taskbar) ---------- */
+[data-theme="win98"] .win98-statusbar {
+  background: #c0c0c0;
+  color: #000000;
+  font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+  box-shadow:
+    inset  0  1px 0 0 #ffffff;
+}
+[data-theme="win98"] .win98-status-cell {
+  box-shadow:
+    inset  1px  1px 0 0 #808080,
+    inset -1px -1px 0 0 #ffffff;
+  background: #c0c0c0;
+}
+
+/* ---------- Card titlebars (BrutalCard becomes a Win98 window) ---------- */
+[data-theme="win98"] .brutal-card {
+  padding-top: 2.5rem !important;    /* room for the titlebar pseudo */
+  border-radius: 0 !important;
+}
+
+/* The Home service cards have an "absolute top-4 left-6" title and an
+   "absolute top-4 right-4 rounded-full" decoration; both collide with the
+   Win98 titlebar. Push the title down and hide the round decoration. */
+[data-theme="win98"] .brutal-card > .absolute.top-4 {
+  top: 2.75rem !important;
+}
+[data-theme="win98"] .brutal-card > .absolute.top-4.rounded-full {
+  display: none !important;
+}
+
+[data-theme="win98"] .brutal-card::before {
+  content: attr(data-title);
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  height: 1.5rem;
+  background: linear-gradient(90deg, #000080 0%, #1084d0 50%, #38a8e0 100%);
+  color: #ffffff;
+  font-family: 'Pixelify Sans', 'MS Sans Serif', 'Tahoma', sans-serif;
+  font-size: 0.75rem;                /* 12px */
+  font-weight: bold;
+  letter-spacing: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 4.25rem 0 0.5rem;       /* leave room on the right for ::after */
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+[data-theme="win98"] .brutal-card::after {
+  content: '_ ▢ ✕';
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.4rem;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ---------- Layout: clear room for the chrome top + bottom ---------- */
+/* In Win98 the order is INVERTED: the Explorer chrome (menu bar + nav
+   buttons + address bar) sits at the very top (top: 0), and the regular
+   site header is pushed down to sit below it. */
+[data-theme="win98"] header.fixed {
+  top: 6.25rem !important;            /* sits below the chrome (~6rem tall) */
+}
+[data-theme="win98"] main {
+  padding-top: 12rem !important;     /* 6.5rem chrome + 5rem header + safety */
+}
+@media (max-width: 768px) {
+  [data-theme="win98"] main {
+    padding-top: 13rem !important;
+  }
+}
+/* Reserve a left strip for the decorative desktop icons (lg+) */
+@media (min-width: 1024px) {
+  [data-theme="win98"] main {
+    padding-left: 6rem !important;
+  }
+}
+
+/* Footer needs its own clearance so it scrolls fully into view above
+   the status bar (1.5rem) + taskbar (2.5rem). */
+[data-theme="win98"] footer {
+  margin-bottom: 4rem !important;
+}
+
+/* Push the floating chat FAB above the taskbar so it's not hidden */
+[data-theme="win98"] .fixed.bottom-8.right-8 {
+  bottom: 4rem !important;
+}
+
+/* ---------- Beveled scrollbar Win98 style ---------- */
+[data-theme="win98"] ::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+[data-theme="win98"] ::-webkit-scrollbar-track {
+  background:
+    repeating-conic-gradient(#c0c0c0 0% 25%, #dfdfdf 0% 50%) 50% / 2px 2px;
+  border-left: 1px solid #808080;
+  box-shadow: inset 1px 0 0 #ffffff;
+}
+[data-theme="win98"] ::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border: none;
+  box-shadow:
+    inset  1px  1px 0 0 #ffffff,
+    inset -1px -1px 0 0 #404040,
+    inset  2px  2px 0 0 #dfdfdf,
+    inset -2px -2px 0 0 #808080;
+}
+[data-theme="win98"] ::-webkit-scrollbar-thumb:hover {
+  background: #d0d0d0;
+}
+[data-theme="win98"] ::-webkit-scrollbar-button {
+  background: #c0c0c0;
+  height: 16px;
+  width: 16px;
+  display: block;
+  box-shadow:
+    inset  1px  1px 0 0 #ffffff,
+    inset -1px -1px 0 0 #404040,
+    inset  2px  2px 0 0 #dfdfdf,
+    inset -2px -2px 0 0 #808080;
+}
+[data-theme="win98"] ::-webkit-scrollbar-corner {
+  background: #c0c0c0;
+}
+
+/* ---------- WIN98: white outlined text on the teal desktop ----------
+   Matches the look of the Win98Desktop icon labels and gives high
+   contrast over #008080. Cards/forms reset to black because they
+   already have their own gray/white background. */
+[data-theme="win98"] main h1,
+[data-theme="win98"] main h2,
+[data-theme="win98"] main h3,
+[data-theme="win98"] main h4,
+[data-theme="win98"] main p,
+[data-theme="win98"] main li {
+  color: #ffffff;
+  text-shadow:
+    1px  1px 0 #000,
+   -1px  1px 0 #000,
+    1px -1px 0 #000,
+   -1px -1px 0 #000;
+}
+
+/* Reset inside any container with its own light background — cards,
+   forms, and any element using bg-surface / bg-surface-alt (which
+   resolve to white / light gray on win98). */
+[data-theme="win98"] main .brutal-card h1,
+[data-theme="win98"] main .brutal-card h2,
+[data-theme="win98"] main .brutal-card h3,
+[data-theme="win98"] main .brutal-card h4,
+[data-theme="win98"] main .brutal-card p,
+[data-theme="win98"] main .brutal-card li,
+[data-theme="win98"] main form h1,
+[data-theme="win98"] main form h2,
+[data-theme="win98"] main form h3,
+[data-theme="win98"] main form h4,
+[data-theme="win98"] main form p,
+[data-theme="win98"] main form li,
+[data-theme="win98"] main [class*="bg-surface"] h1,
+[data-theme="win98"] main [class*="bg-surface"] h2,
+[data-theme="win98"] main [class*="bg-surface"] h3,
+[data-theme="win98"] main [class*="bg-surface"] h4,
+[data-theme="win98"] main [class*="bg-surface"] p,
+[data-theme="win98"] main [class*="bg-surface"] li,
+[data-theme="win98"] main [class*="bg-surface"] span:not([class*="text-"]) {
+  color: var(--color-fg);
+  text-shadow: none;
 }
 
 /* ---------- MINIMAL: extra breathing room, refined type ---------- */

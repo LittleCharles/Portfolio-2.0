@@ -16,6 +16,11 @@ import { StructuredData } from './components/StructuredData';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ThemeSwitcher } from './components/ThemeSwitcher';
 import { MatrixBackground } from './components/MatrixBackground';
+import { Win98Chrome } from './components/win98/Win98Chrome';
+import { Win98Desktop } from './components/win98/Win98Desktop';
+import { Win98StatusBar } from './components/win98/Win98StatusBar';
+import { Win98Taskbar } from './components/win98/Win98Taskbar';
+import { ThemedFooterCredit } from './components/ThemedFooterCredit';
 const ChatTerminal = React.lazy(() =>
   import('./components/ChatTerminal').then(m => ({ default: m.ChatTerminal }))
 );
@@ -53,7 +58,11 @@ const App: React.FC = () => {
       <BrowserRouter basename="/Portfolio-2.0">
         <StructuredData lang={lang} />
         <MatrixBackground />
-        <div className="min-h-screen flex flex-col font-sans selection:bg-accent selection:text-on-accent bg-bg text-fg">
+        <Win98Chrome />
+        <Win98Desktop />
+        <Win98StatusBar />
+        <Win98Taskbar />
+        <div className="app-shell min-h-screen flex flex-col font-sans selection:bg-accent selection:text-on-accent bg-bg text-fg">
           <a
             href="#main-content"
             className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-accent focus:text-on-accent focus:px-4 focus:py-2 focus:border-theme focus:border-theme-border focus:font-black focus:uppercase"
@@ -170,9 +179,7 @@ const App: React.FC = () => {
                   <span className="sr-only"> ({lang === 'pt' ? 'abre em nova janela' : 'opens in new window'})</span>
                 </a>
               </div>
-              <div className="font-mono text-xs text-muted font-bold uppercase">
-                © {new Date().getFullYear()} LCV. {t.footer.created}.
-              </div>
+              <ThemedFooterCredit lang={lang} />
             </div>
           </footer>
         </div>
